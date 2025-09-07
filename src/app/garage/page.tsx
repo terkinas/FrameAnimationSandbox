@@ -4,6 +4,16 @@ import { defaultItems, shopItems } from "@/items";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+interface Item {
+  id: number;
+  name: string;
+  imageUrl: string;
+  description: string;
+  isOwned: boolean;
+  isEquipped: boolean;
+  price: number;
+}
+
 export default function Garage() {
   const [items, setItems] = useState(defaultItems);
 
@@ -30,7 +40,7 @@ export default function Garage() {
     return items.some((it) => it.id === id && it.isOwned);
   };
 
-  const buyItem = (item: any) => {
+  const buyItem = (item: Item) => {
     if (money < item.price) {
       alert("Not enough money!");
       return;

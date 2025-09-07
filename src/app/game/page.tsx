@@ -5,6 +5,23 @@ import { Plane } from "@/components/Plane";
 import { Obstacle } from "@/components/Obstacle";
 import drawScrollingBackground from "@/tools/imageResize";
 
+interface IObstacle {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+interface Item {
+  id: number;
+  name: string;
+  imageUrl: string;
+  description: string;
+  isOwned: boolean;
+  isEquipped: boolean;
+  price: number;
+}
+
 export default function GameCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -28,14 +45,14 @@ export default function GameCanvas() {
     let car = null;
     if (storedItems) {
       const inventory = JSON.parse(storedItems);
-      car = inventory.find((item: any) => item.isEquipped);
+      car = inventory.find((item: Item) => item.isEquipped);
     }
 
     const roadImg = new Image();
     roadImg.src = "/images/road.png";
     // roadImg.src = car ? car.imageUrl : "/images/road.png";
 
-    let roadPattern: CanvasPattern | null = null;
+    const roadPattern: CanvasPattern | null = null;
     let offsetY = 0;
 
     roadImg.onload = () => {
@@ -84,7 +101,7 @@ export default function GameCanvas() {
 
     const obstacleSpacing = canvas.height / 2 + canvas.width / 6;
 
-    let obstacles: Obstacle[] = [];
+    const obstacles: Obstacle[] = [];
 
     obstacleImg.onload = () => {
       obstaclePattern = ctx.createPattern(obstacleImg, "repeat")!;
