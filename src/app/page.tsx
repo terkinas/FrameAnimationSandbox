@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -21,17 +22,22 @@ export default function Home() {
             {/* Your money: {parseInt(localStorage.getItem("money") || "0")} */}
           </p>
           <div className="flex flex-col gap-1">
-            <button
+            {/* <button
               className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              onClick={() => location.reload()}
+              onClick={() => (window.location.href = "/game3")}
             >
               Start Game
-            </button>
+            </button> */}
+            <Link href="/game3">
+              <button className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Start Game
+              </button>
+            </Link>
             <button
               className="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-              onClick={() => (window.location.href = "/garage")}
+              onClick={() => (window.location.href = "/game3/upgrades")}
             >
-              Go to Garage
+              Go to Upgrades
             </button>
             <button
               className="w-full px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
