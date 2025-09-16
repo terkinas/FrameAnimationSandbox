@@ -2,6 +2,16 @@
 import { use, useEffect, useRef, useState } from "react";
 import { loadStats, saveStats } from "./functions";
 
+interface WorldObject {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  radius: number;
+  solid: boolean;
+}
+
 const WORLD_WIDTH = 8000;
 const WORLD_HEIGHT = 8000;
 
@@ -19,7 +29,7 @@ export default function Game() {
   const enemyTankBarrelRef = useRef<HTMLImageElement | null>(null);
 
   const [storedScore, setStoredScore] = useState<number | null>(null);
-  const [showGameOver, setShowGameOver] = useState(false);
+  const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
   //   const canvasSizeRef = useRef({
   //     width: window.innerWidth,
@@ -477,7 +487,7 @@ export default function Game() {
         const circleX = obj.x;
         const circleY = obj.y + collisionOffsetY; // move hitbox down
 
-        let radius = 60; // half of your previous 40x40 rectangle
+        const radius = 60; // half of your previous 40x40 rectangle
 
         // ctx.fillStyle =
         obj.id === "tree" ? "green" : obj.id === "rock" ? "gray" : "gold";
@@ -831,7 +841,7 @@ function circleIntersect(
 }
 
 function generateObjects() {
-  const objs: any[] = [];
+  const objs: WorldObject[] = [];
 
   function randomPos(margin = 100) {
     return {

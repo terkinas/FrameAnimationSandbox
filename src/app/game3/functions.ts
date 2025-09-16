@@ -1,3 +1,5 @@
+import { IStats } from "./upgrades/page";
+
 export function loadStats() {
   if (typeof window === "undefined")
     return {
@@ -20,7 +22,7 @@ export function loadStats() {
       };
 }
 
-export function saveStats(stats: any) {
+export function saveStats(stats: IStats) {
   if (typeof window === "undefined") return;
   localStorage.setItem("playerStats", JSON.stringify(stats));
 }

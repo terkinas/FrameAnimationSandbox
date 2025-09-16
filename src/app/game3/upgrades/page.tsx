@@ -3,6 +3,15 @@ import { useEffect, useState } from "react";
 import { loadStats, saveStats } from "../functions";
 import Link from "next/link";
 
+export interface IStats {
+  score: number;
+  damage: number;
+  fireDelay: number;
+  playerSpeed: number;
+  playerHealth: number;
+}
+type UpgradeType = Exclude<keyof IStats, "score">;
+
 export default function UpgradePage() {
   const [stats, setStats] = useState({
     damage: 1,
@@ -29,7 +38,7 @@ export default function UpgradePage() {
     const cost = 10; // or dynamic cost
     if (stats.score < cost) return;
 
-    setStats((prev: any) => {
+    setStats((prev: IStats) => {
       const newStats = { ...prev, score: prev.score - cost };
       switch (type) {
         case "damage":
@@ -70,7 +79,7 @@ export default function UpgradePage() {
               {type.charAt(0).toUpperCase() + type.slice(1)}: {stats[key]}
             </span>
             <button
-              onClick={() => upgrade(key as any)} // <-- cast here
+              onClick={() => upgrade(key as UpgradeType)} // <-- cast here
               className="bg-blue-600 text-white px-2 py-1 rounded cursor-pointer hover:bg-blue-700 disabled:opacity-50"
             >
               Upgrade
